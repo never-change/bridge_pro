@@ -15,12 +15,12 @@ export async function query() {
 }
 
 export async function queryCurrent() {
-  // return request('/json/api');
   const { uid } = JSON.parse(localStorage.userMSG);
   const mock = 'user/queryCurrent';
   const model = 'res.users';
   const method = 'read2';
   const args = [uid, ['name', 'ref', 'email']];
   const params = { model, method, args, kwargs: {}, mock };
-  return odooCall(params);
+  const res = await odooCall(params);
+  return res[0];
 }

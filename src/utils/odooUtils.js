@@ -1,19 +1,23 @@
 import request from './request';
 
-export function jsonrpc(url, body) {
+export async function jsonrpc(url, body) {
   const params = {
     jsonrpc: 2.0,
     id: 1,
     method: 'call',
     params: body,
   };
-  return request(url, {
+  const res = await request(url, {
     method: 'POST',
     body: params,
   });
+  // TBD: response.error!!!!
+  console.log(res.result);
+  return res.result;
 }
 
-export async function odooLogin(params) {
+export function odooLogin(params) {
+  // export async function odooLogin(params) {
   const newParams = {
     ...params,
     db: 'TT',
@@ -23,11 +27,6 @@ export async function odooLogin(params) {
 
 export function toArray(a, b, c) {
   return [a, b, c];
-}
-
-export function odooResponse(response) {
-  // TBD: response.error!!!!
-  return response.result;
 }
 
 export function odooCall(params) {

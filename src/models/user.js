@@ -1,5 +1,4 @@
 import { query as queryUsers, queryCurrent } from '../services/user';
-import { odooResponse } from '../utils/odooUtils';
 
 export default {
   namespace: 'user',
@@ -18,8 +17,8 @@ export default {
       });
     },
     *fetchCurrent(_, { call, put }) {
-      const response = odooResponse(yield call(queryCurrent))[0];
-      console.log('response',response)
+      const response = yield call(queryCurrent);
+      // console.log('response********',response)
       yield put({
         type: 'saveCurrentUser',
         payload: response,
