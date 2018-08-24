@@ -6,6 +6,9 @@ import { getProfileBasicData } from './mock/profile';
 import { getProfileAdvancedData } from './mock/profile';
 import { getNotices } from './mock/notices';
 import { format, delay } from 'roadhog-api-doc';
+import { odooJsonUserLogin } from './mock/login';
+import { odooJsonApi } from './mock/common';
+
 
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
@@ -71,30 +74,36 @@ const proxy = {
   'GET /api/fake_chart_data': getFakeChartData,
   'GET /api/profile/basic': getProfileBasicData,
   'GET /api/profile/advanced': getProfileAdvancedData,
-  'POST /api/login/account': (req, res) => {
-    const { password, userName, type } = req.body;
-    if (password === '888888' && userName === 'admin') {
-      res.send({
-        status: 'ok',
-        type,
-        currentAuthority: 'admin',
-      });
-      return;
-    }
-    if (password === '123456' && userName === 'user') {
-      res.send({
-        status: 'ok',
-        type,
-        currentAuthority: 'user',
-      });
-      return;
-    }
-    res.send({
-      status: 'error',
-      type,
-      currentAuthority: 'guest',
-    });
-  },
+
+  'POST /json/user/login': odooJsonUserLogin,
+  // 'POST /json/user/login': 'http://192.168.0.110:8069/json/user/login',
+
+  'POST /json/api': odooJsonApi,
+
+  // 'POST /api/login/account': (req, res) => {
+  //   const { password, userName, type } = req.body;
+  //   if (password === '888888' && userName === 'admin') {
+  //     res.send({
+  //       status: 'ok',
+  //       type,
+  //       currentAuthority: 'admin',
+  //     });
+  //     return;
+  //   }
+  //   if (password === '123456' && userName === 'user') {
+  //     res.send({
+  //       status: 'ok',
+  //       type,
+  //       currentAuthority: 'user',
+  //     });
+  //     return;
+  //   }
+  //   res.send({
+  //     status: 'error',
+  //     type,
+  //     currentAuthority: 'guest',
+  //   });
+  // },
   'POST /api/register': (req, res) => {
     res.send({ status: 'ok', currentAuthority: 'user' });
   },
@@ -137,4 +146,9 @@ const proxy = {
   },
 };
 
-export default (noProxy ? {} : delay(proxy, 1000));
+export default (noProxy ? {
+  'POST /json/(.*)': 'http://192.168.0.110:8069/json/',
+} : delay(proxy, 1000));
+
+// export default (noProxy ? {} : delay(proxy, 1000));
+

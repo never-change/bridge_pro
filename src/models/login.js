@@ -4,6 +4,8 @@ import { fakeAccountLogin } from '../services/api';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
 import { getPageQuery } from '../utils/utils';
+import { odooResponse } from '../utils/odooUtils';
+
 
 export default {
   namespace: 'login',
@@ -14,14 +16,20 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const response = odooResponse(yield call(fakeAccountLogin, payload));
+      console.log(response)
       yield put({
         type: 'changeLoginStatus',
         payload: response,
+
       });
       // Login successfully
       if (response.status === 'ok') {
         reloadAuthorized();
+        
+        //save user's login message
+        localStorage.userMSG = JSON.stringify(response)
+
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
