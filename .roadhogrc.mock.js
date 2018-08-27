@@ -1,6 +1,6 @@
 import mockjs from 'mockjs';
 import { getRule, postRule } from './mock/rule';
-import { getActivities, getNotice, getFakeList } from './mock/api';
+import { getActivities, getNotice, getFakeList, gameList } from './mock/api';
 import { getFakeChartData } from './mock/chart';
 import { getProfileBasicData } from './mock/profile';
 import { getProfileAdvancedData } from './mock/profile';
@@ -10,6 +10,7 @@ import { odooJsonUserLogin } from './mock/login';
 import { odooJsonApi } from './mock/common';
 
 
+console.log(gameList);
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
 
@@ -31,6 +32,7 @@ const proxy = {
       notifyCount: 12,
     },
   },
+  'GET /api/game': gameList,
   // GET POST 可省略
   'GET /api/users': [
     {
