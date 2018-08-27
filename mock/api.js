@@ -61,6 +61,8 @@ const user = [
   '仲尼',
 ];
 
+export const gameList = [{ name: 1 }];
+
 export function fakeList(count) {
   const list = [];
   for (let i = 0; i < count; i += 1) {
@@ -69,7 +71,7 @@ export function fakeList(count) {
       owner: user[i % 10],
       title: titles[i % 8],
       avatar: avatars[i % 8],
-      cover: parseInt(i / 4, 10) % 2 === 0 ? covers[i % 4] : covers[3 - i % 4],
+      cover: parseInt(i / 4, 10) % 2 === 0 ? covers[i % 4] : covers[3 - (i % 4)],
       status: ['active', 'exception', 'normal'][i % 3],
       percent: Math.ceil(Math.random() * 50) + 50,
       logo: avatars[i % 8],

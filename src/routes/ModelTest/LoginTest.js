@@ -16,13 +16,8 @@ export default class LoginTest extends Component {
     const { dispatch } = this.props;
 
     dispatch({
-      type: 'login/login',
+      type: 'logintest/login',
       payload: { ...loginTest },
-    });
-
-    dispatch({
-      type: 'login/login',
-      payload: { name: '1111' },
     });
   };
 
