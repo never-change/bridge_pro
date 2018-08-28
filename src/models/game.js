@@ -13,7 +13,7 @@ export default {
       // const data = yield call(QueryGames, payload);
       const data = yield call(QueryGame, pd);
       // const data = yield call(QueryGame, payload);
-      console.log(data,'22222222222222')
+      console.log(data,'function:QueryGame')
       if (data) {
         yield put({
           type: 'save',
@@ -25,8 +25,7 @@ export default {
 
   reducers: {
     save(state, { payload }) {
-      alert('cc');
-      console.log(payload)
+      // console.log(payload)
       return {
         ...state,
         payload,

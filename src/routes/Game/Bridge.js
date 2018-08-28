@@ -1,6 +1,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'dva';
+import { Button, Input } from 'antd';
+const Search = Input.Search;
 // @connect(({bridgePlay})=>{
 //     console.log(bridgePlay);
 //     return ({
@@ -9,6 +11,9 @@ import { connect } from 'dva';
 // })
 @connect(({ bridgePlay }) => ({ bridgePlay }))
 export default class Bridge extends Component {
+  state = {
+    name: null,
+  }
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -16,12 +21,27 @@ export default class Bridge extends Component {
     });
   }
 
+  click = (value) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'bridgePlay/next',
+      payload: { val: value },
+    });
+  }
+
   render() {
-    console.log('****bridge**',this.props.bridgePlay)
-    // return <div>123123</div>;
+    console.log('****bridge**', this.props.bridgePlay)
     const data = this.props.bridgePlay.payload;
-    
-    return <div>{JSON.stringify(data)}</div>;
+
+    return <div>
+      <Search
+        placeholder="input search text"
+        enterButton="TEST"
+        size="large"
+        onSearch={value => this.click(value)}
+      />
+      <div>{JSON.stringify(data)}</div>
+    </div>;
   }
 }
 
