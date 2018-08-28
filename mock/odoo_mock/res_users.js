@@ -1,10 +1,10 @@
 const dataUser = [{ id: 1, name: 'ddddd', email: '' }];
 
-export function userCall(method, args, kwargs) {
+function userCall(method, args, kwargs) {
   switch (method) {
     case 'read2':
       return read2(args, kwargs);
-    case 'searchRead2':
+    case 'search_read2':
       return searchRead2(args, kwargs);
     default:
       break;
@@ -30,6 +30,8 @@ function searchRead2(args, kwargs) {
   }
 }
 
-export default {
-  userCall,
-};
+// export default {
+//   userCall,
+// };
+
+module.exports = userCall ;
