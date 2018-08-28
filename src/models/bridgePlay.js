@@ -22,12 +22,22 @@ export default {
         });
       }
     },
+
+    *next({ payload }, { call, put }) {
+      const data = payload;
+      if (data) {
+        yield put({
+          type: 'save',
+          payload: data,
+        });
+      }
+    }
+
   },
 
   reducers: {
     save(state, { payload }) {
-      alert('123');
-      console.log(payload)
+      // console.log(payload)
       return {
         ...state,
         payload,
