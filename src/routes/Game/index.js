@@ -10,7 +10,7 @@ export default class Game extends Component {
   }
 
   render() {
-    console.log('**********',this.props.game.payload)
+    console.log('******game****',this.props)
     // return <div>123123</div>;
     const data = this.props.game.payload;
     

@@ -35,6 +35,10 @@ const menuData = [
         name: '查询',
         path: 'game',
       },
+      {
+        name: 'bridge',
+        path: 'bridge',
+      },
     ],
   },
   {
