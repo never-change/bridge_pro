@@ -1,6 +1,7 @@
 import mockjs from 'mockjs';
 import { getRule, postRule } from './mock/rule';
-import { getActivities, getNotice, getFakeList, gameList } from './mock/api';
+import { getActivities, getNotice, getFakeList } from './mock/api';
+// import { gameList } from './mock/game';全部放到odooJsonApi了所以这里不再需要
 import { getFakeChartData } from './mock/chart';
 import { getProfileBasicData } from './mock/profile';
 import { getProfileAdvancedData } from './mock/profile';
@@ -9,8 +10,9 @@ import { format, delay } from 'roadhog-api-doc';
 import { odooJsonUserLogin } from './mock/login';
 import { odooJsonApi } from './mock/common';
 
+// console.log(odooJsonUserLogin)
+// console.log(gameList);
 
-console.log(gameList);
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
 
@@ -32,7 +34,9 @@ const proxy = {
       notifyCount: 12,
     },
   },
-  'GET /api/game': gameList,
+  // 全部放到odooJsonApi了所以这里不再需要
+  // 'GET /json/game': gameList,
+
   // GET POST 可省略
   'GET /api/users': [
     {

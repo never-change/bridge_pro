@@ -21,6 +21,9 @@ export async function queryCurrent() {
   const method = 'read2';
   const args = [uid, ['name', 'ref', 'email']];
   const params = { model, method, args, kwargs: {}, mock };
+  
+  console.log('servers/user',params)
+
   const res = await odooCall(params);
   return res[0];
 }
