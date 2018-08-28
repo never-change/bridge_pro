@@ -1,19 +1,20 @@
-import { QueryGame, QueryGames} from '../services/game';
+// import { QueryGame, QueryGames} from '../services/game';
 
 export default {
-  namespace: 'game',
+  namespace: 'bridgePlay',
 
   state: {
     status: undefined,
   },
 
   effects: {
-    *querygame({ payload }, { call, put }) {
+    *queryBridge({ payload }, { call, put }) {
       const pd = {id:20};
+      const data = [{id:1,name:'bridge'}];
       // const data = yield call(QueryGames, payload);
-      const data = yield call(QueryGame, pd);
+    //   const data = yield call(QueryGame, pd);
       // const data = yield call(QueryGame, payload);
-      console.log(data,'function:QueryGame')
+      console.log(data,'bbbb')
       if (data) {
         yield put({
           type: 'save',
@@ -21,6 +22,17 @@ export default {
         });
       }
     },
+
+    *next({ payload }, { call, put }) {
+      const data = payload;
+      if (data) {
+        yield put({
+          type: 'save',
+          payload: data,
+        });
+      }
+    }
+
   },
 
   reducers: {

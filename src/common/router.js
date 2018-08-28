@@ -100,6 +100,10 @@ export const getRouterData = app => {
     '/test/Game': {
       component: dynamicWrapper(app, ['game'], () => import('../routes/Game')),
     },
+
+    '/test/Bridge': {
+      component: dynamicWrapper(app, ['bridgePlay'], () => import('../routes/Game/Bridge')),
+    },
     '/dashboard/analysis': {
       component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Analysis')),
     },
