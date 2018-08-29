@@ -19,7 +19,14 @@ const dataGame = [
 
 const createGames = [
   {
+    id: 1,
     name: '赛事1',
+    org_type: '无类型',
+    score_uom: '无方式',
+  },
+  {
+    id: 2,
+    name: '赛事2',
     org_type: '无类型',
     score_uom: '无方式',
   },

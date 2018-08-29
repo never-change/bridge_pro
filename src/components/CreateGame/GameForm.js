@@ -1,3 +1,6 @@
+// LSY
+// 2018-8-29
+
 import React from 'react';
 import CollectionCreateForm from './BasicForm';
 
@@ -35,14 +38,15 @@ class GameForm extends React.Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, activeData } = this.props;
     const { visible } = this.state;
     return (
-      <div style={{ display: 'inline', float: 'right' }}>
+      <div style={{ display: 'inline' }}>
         <span type="primary" onClick={this.showModal}>
           {children}
         </span>
         <CollectionCreateForm
+          activeData={activeData}
           wrappedComponentRef={this.saveFormRef}
           visible={visible}
           onCancel={this.handleCancel}
