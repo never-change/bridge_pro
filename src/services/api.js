@@ -1,5 +1,17 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
+import { odooLogin } from '../utils/odooUtils'
+
+
+export async function fakeAccountLogin(params) {
+  const newParams = {
+    type: params.type,
+    login: params.userName,
+    password: params.password,
+  };
+  return odooLogin(newParams);
+}
+
 
 export async function queryProjectNotice() {
   return request('/api/project/notice');
@@ -60,12 +72,6 @@ export async function queryFakeList(params) {
   return request(`/api/fake_list?${stringify(params)}`);
 }
 
-export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
-    method: 'POST',
-    body: params,
-  });
-}
 
 export async function fakeRegister(params) {
   return request('/api/register', {

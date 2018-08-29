@@ -23,6 +23,25 @@ const menuData = [
     ],
   },
   {
+    name: '测试页',
+    path: 'test',
+    icon: 'form',
+    children: [
+      {
+        name: 'loginTest',
+        path: 'loginTest',
+      },
+      {
+        name: '查询',
+        path: 'game',
+      },
+      {
+        name: 'bridge',
+        path: 'bridge',
+      },
+    ],
+  },
+  {
     name: '表单页',
     icon: 'form',
     path: 'form',
