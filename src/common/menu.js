@@ -23,6 +23,11 @@ const menuData = [
     ],
   },
   {
+    name: '创建比赛',
+    path: 'creategame',
+    icon: 'plus-square-o',
+  },
+  {
     name: '测试页',
     path: 'test',
     icon: 'form',

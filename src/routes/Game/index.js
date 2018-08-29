@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
+
 @connect(({ game }) => ({ game }))
 export default class Game extends Component {
   componentDidMount() {
