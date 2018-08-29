@@ -18,7 +18,7 @@ const app = dva({
 app.use(createLoading());
 
 // 3. Register global model
-app.model(require('./models/global').default);
+export const modeltest = app.model(require('./models/global').default);
 
 // 4. Router
 app.router(require('./router').default);
@@ -26,4 +26,4 @@ app.router(require('./router').default);
 // 5. Start
 app.start('#root');
 
-export default app._store; // eslint-disable-line
+export default app.model; // eslint-disable-line
