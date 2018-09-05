@@ -104,7 +104,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['creategame'], () => import('../routes/Creategame')),
     },
     '/test/Bridge': {
-      component: dynamicWrapper(app, ['bridgePlay'], () => import('../routes/Game/Bridge')),
+      component: dynamicWrapper(app, ['bridgePlay', 'odoo_data'], () => import('../routes/Game/Bridge')),
     },
     '/dashboard/analysis': {
       component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Analysis')),
