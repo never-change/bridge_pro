@@ -23,11 +23,6 @@ const menuData = [
     ],
   },
   {
-    name: '创建比赛',
-    path: 'creategame',
-    icon: 'plus-square-o',
-  },
-  {
     name: '测试页',
     path: 'test',
     icon: 'form',
@@ -36,13 +31,16 @@ const menuData = [
         name: 'loginTest',
         path: 'loginTest',
       },
+    ],
+  },
+  {
+    name: 'CRM',
+    path: 'crm',
+    icon: 'form',
+    children: [
       {
-        name: '查询',
-        path: 'game',
-      },
-      {
-        name: 'bridge',
-        path: 'bridge',
+        name: 'CONTACT',
+        path: 'contact',
       },
     ],
   },

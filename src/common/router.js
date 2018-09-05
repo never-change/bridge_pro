@@ -94,17 +94,11 @@ export const getRouterData = app => {
     '/': {
       component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
     },
+    '/crm/contact': {
+      component: dynamicWrapper(app, ['contact', 'odoo_data'], () => import('../routes/Crm/Contact')),
+    },
     '/test/loginTest': {
       component: dynamicWrapper(app, ['user'], () => import('../routes/ModelTest/LoginTest')),
-    },
-    '/test/Game': {
-      component: dynamicWrapper(app, ['game'], () => import('../routes/Game')),
-    },
-    '/creategame': {
-      component: dynamicWrapper(app, ['creategame'], () => import('../routes/Creategame')),
-    },
-    '/test/Bridge': {
-      component: dynamicWrapper(app, ['bridgePlay'], () => import('../routes/Game/Bridge')),
     },
     '/dashboard/analysis': {
       component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Analysis')),
