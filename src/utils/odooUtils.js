@@ -13,6 +13,7 @@ export async function jsonrpc(url, body) {
   });
   // TBD: response.error!!!!
   console.log(res.result);
+  // return res;
   return res.result;
 }
 
@@ -38,6 +39,7 @@ export function odooCall(params) {
   const mock = params.mock || '';
   let { context } = kwargs;
   context = { ...context, mock_react_api: mock };
+  //TBD: read方法不能传context？
   kwargs = { ...kwargs, context };
   const newParams = {
     model,
@@ -47,4 +49,15 @@ export function odooCall(params) {
   };
 
   return jsonrpc(`/json/api?session_id=${JSON.parse(localStorage.userMSG).sid}`, newParams);
+}
+
+
+
+export function lookup(ids = [], data = {}) {
+  /*  return :
+   [ {id:1,name:'san',mobile: '13912345678', parent_id: [1,'HaHaGroup']},
+     {id:1,name:'san',mobile: '13912345678', parent_id: [1,'HaHaGroup']} ]
+  */
+  return ids instanceof Array ? ids.map(id => data[id]) : data[ids]
+
 }

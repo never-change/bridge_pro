@@ -153,7 +153,8 @@ const proxy = {
 };
 
 export default (noProxy ? {
-  'POST /json/(.*)': 'http://192.168.0.110:8069/json/',
+  'POST /json/(.*)': 'http://192.168.0.117:8069/json/',
+  // 'POST /json/(.*)': 'http://192.168.0.110:8069/json/',
 } : delay(proxy, 1000));
 
 // export default (noProxy ? {} : delay(proxy, 1000));

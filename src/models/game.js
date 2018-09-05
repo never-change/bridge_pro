@@ -9,7 +9,8 @@ export default {
 
   effects: {
     *querygame({ payload }, { call, put }) {
-      const pd = { id: 20 };
+      const pd = { id: 2 };
+      // const pd = { id: 20 };
       // const data = yield call(QueryGames, payload);
       const data = yield call(QueryGame, pd, payload);
       // const data = yield call(QueryGame, payload);
