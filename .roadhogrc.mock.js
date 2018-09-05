@@ -8,7 +8,7 @@ import { getProfileAdvancedData } from './mock/profile';
 import { getNotices } from './mock/notices';
 import { format, delay } from 'roadhog-api-doc';
 import { odooJsonUserLogin } from './mock/login';
-import { odooJsonApi } from './mock/common';
+import { odooJsonApi } from './mock/odooIndex';
 
 // console.log(odooJsonUserLogin)
 // console.log(gameList);
@@ -155,7 +155,7 @@ const proxy = {
 export default (noProxy ? {
   'POST /json/(.*)': 'http://192.168.0.117:8069/json/',
   // 'POST /json/(.*)': 'http://192.168.0.110:8069/json/',
-} : delay(proxy, 1000));
+} : delay(proxy, 200));
 
 // export default (noProxy ? {} : delay(proxy, 1000));
 

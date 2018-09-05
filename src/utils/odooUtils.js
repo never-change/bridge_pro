@@ -1,4 +1,16 @@
+/*
+  new method :
+    lookup
+    odooRead, odooWrite, odooCreate, odooSearch,odooUnlnik
+  2018-9-5 by win
+*/
+
+
 import request from './request';
+
+export function lookup(ids = [], data = {}) {
+  return Array.isArray(ids) ? ids.map(id => data[id]) : data[ids] ? data[ids] : {}
+}
 
 export async function jsonrpc(url, body) {
   const params = {
@@ -13,7 +25,6 @@ export async function jsonrpc(url, body) {
   });
   // TBD: response.error!!!!
   console.log(res.result);
-  // return res;
   return res.result;
 }
 
@@ -39,7 +50,6 @@ export function odooCall(params) {
   const mock = params.mock || '';
   let { context } = kwargs;
   context = { ...context, mock_react_api: mock };
-  //TBD: read方法不能传context？
   kwargs = { ...kwargs, context };
   const newParams = {
     model,
@@ -47,17 +57,56 @@ export function odooCall(params) {
     args,
     kwargs,
   };
-
   return jsonrpc(`/json/api?session_id=${JSON.parse(localStorage.userMSG).sid}`, newParams);
 }
 
+export async function odooWrite(payload) {
+  const { model, id, vals, mock = '' } = payload;
+  const method = 'write';
+
+  const args = [id, vals];
+  const payload2 = { model, method, args, kwargs: {}, mock };
+  const res = await odooCall(payload2);
+  return res;
+}
+
+export async function odooUnlink(payload) {
+  const { model, id, mock = '' } = payload;
+  const method = 'unlink';
+
+  const args = [id];
+  const payload2 = { model, method, args, kwargs: {}, mock };
+  const res = await odooCall(payload2);
+  return res;
+}
 
 
-export function lookup(ids = [], data = {}) {
-  /*  return :
-   [ {id:1,name:'san',mobile: '13912345678', parent_id: [1,'HaHaGroup']},
-     {id:1,name:'san',mobile: '13912345678', parent_id: [1,'HaHaGroup']} ]
-  */
-  return ids instanceof Array ? ids.map(id => data[id]) : data[ids]
+export async function odooCreate(payload) {
+  const { model, vals, mock = '' } = payload;
+  const method = 'create';
 
+  const args = [vals];
+  const payload2 = { model, method, args, kwargs: {}, mock };
+  const res = await odooCall(payload2);
+  return res;
+}
+
+export async function odooRead(payload) {
+  const { model, id, fields = [], mock = '' } = payload;
+  const method = 'read';
+
+  const args = [id, fields];
+  const payload2 = { model, method, args, kwargs: {}, mock };
+  const res = await odooCall(payload2);
+  return res;
+}
+
+export async function odooSearch(payload) {
+  const { model, domain = [], fields = [], mock = '' } = payload;
+  const method = 'search';
+
+  const args = [domain, fields];
+  const payload2 = { model, method, args, kwargs: {}, mock };
+  const res = await odooCall(payload2);
+  return res;
 }

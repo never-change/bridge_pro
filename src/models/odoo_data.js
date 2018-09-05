@@ -1,63 +1,70 @@
-// import { QueryGame, QueryGames} from '../services/game';
+/*
+  2018-9-5 by win
 
+  public:
+  read:  call odooRead  return data, then refresh state
+  write: call odooWrite return true, then refresh state
+  remove: remove data from state
 
+  private:
+  save: the step after read or write
+
+*/
+
+import { odooRead, odooWrite } from '../utils/odooUtils';
+
+function dot2line(model) {
+    return model.replace('.', '_');
+}
 
 export default {
     namespace: 'odoo_data',
 
     state: {
-        // data: {},   //写法2,3
-        // testmodel: {
-        //     1: { name: 'zhangsan', age: 18 },
-        //     2: { name: 'lisi', age: 16 },
-        //     3: { name: 'wangwu', age: 100 },
-        // },
     },
+
     effects: {
 
-    },
-
-    reducers: {
-        // save(state, { payload }) {
-        //     console.log(payload, 'odoo partner save!')
-        //     // return { ...{state}, ...payload }  ;    //写法1
-        //     // return {data:{ ...{state}, ...payload } } ; //写法2
-        //     return {...state, data:{ ...{state}, ...payload }  } ; //写法3
-        // },
-
-        save(state, { payload }) {
-            console.log('odoo data save', payload)
-
-            let new_model_data = {};
-            for (var model in payload) {
-                const data = payload[model];
-                const records = state[model] ? state[model] : {}
-                for (var id in data) {
-                    const rec = records[id] ? records[id] : {}
-                    records[id] = { ...rec, ...data[id] }
-                }
-                new_model_data[model] = records;
-            }
-            return { ...state, ...new_model_data };
+        *read({ payload }, { call, put, select }) {
+            /* read form odoo server then save it in here
+            */
+            const data = yield call(odooRead, payload);
+            const { model } = payload;
+            yield put({ type: 'save', payload: { [dot2line(model)]: data } });
         },
 
-        edit(state, { payload }) {
-            console.log(payload, 'odoo data edit!');
-            const model = payload[0];
-            const id = payload[1][0];
-            const oldData = state[model][id];
-            const newData = { ...oldData, ...payload[1][1] }
-            const m = {};
-            m[id] = newData;
-            const t = { ...state[model], ...m };
-            const z = {}
-            z[model] = t;
+        *write({ payload }, { call, put, select }) {
+            /* write to odoo server then update in here
+            */
+            const data = yield call(odooWrite, payload);
+            if (data) {
+                const { model, id, vals } = payload;
+                yield put({ type: 'save', payload: { [dot2line(model)]: { [id]: vals } } });
+            }
+        },
+    },
 
-            return {
-                ...state,
-                ...z,
-                //...payload ,
-            };
+
+    reducers: {
+        remove(state, { payload }) {
+            const { model, id } = payload;
+            const model2 = dot2line(model);
+            const data = { ...state[model2] };
+            delete data[id];
+            return { ...state, [model2]: data };
+        },
+
+        save(state, { payload }) {
+            //
+            const new_state = { ...state };
+            for (var model in payload) {
+                const records = state[model] ? state[model] : {}
+                for (var id in payload[model]) {
+                    records[id] = { ...records[id], ...payload[model][id] }
+                }
+                new_state[model] = records;
+            }
+            return new_state;
         },
 
     },
