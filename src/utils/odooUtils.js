@@ -98,14 +98,20 @@ export async function odooRead(payload) {
   const args = [id, fields];
   const payload2 = { model, method, args, kwargs: {}, mock };
   const res = await odooCall(payload2);
-  return res;
+  console.log('odooRead------', res)
+
+  let res1 = {};
+  for (let r of res) {
+    res1[r.id] = r;
+  }
+  return res1;
 }
 
 export async function odooSearch(payload) {
-  const { model, domain = [], fields = [], mock = '' } = payload;
+  const { model, domain = [], mock = '' } = payload;
   const method = 'search';
 
-  const args = [domain, fields];
+  const args = [domain];
   const payload2 = { model, method, args, kwargs: {}, mock };
   const res = await odooCall(payload2);
   return res;

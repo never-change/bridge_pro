@@ -32,10 +32,10 @@ export default {
 
     effects: {
         *query({ payload }, { call, put, select }) {
-            const data = yield call(odooSearch, { model: 'res.partner', domain: [], fields: [], mock: 'contact/search' });
+            const data = yield call(odooSearch, { model: 'res.partner', domain: [['id', '>', 40]], mock: 'contact/search' });
 
             if (data) {
-                yield put({ type: 'odoo_data/read', payload: { model: 'res.partner', id: data, mock: 'contact/searchRead' } });
+                yield put({ type: 'odoo_data/read', payload: { model: 'res.partner', id: data, fields: ['name'], mock: 'contact/searchRead' } });
                 yield put({ type: 'save', payload: { ids: data } });
             }
         },
@@ -44,7 +44,7 @@ export default {
             const data = yield call(odooCreate, { model: 'res.partner', vals: payload, mock: 'contact/create' });
 
             if (data) {
-                yield put({ type: 'odoo_data/read', payload: { model: 'res.partner', id: data, mock: 'contact/read' } });
+                yield put({ type: 'odoo_data/read', payload: { model: 'res.partner', id: data, fields: ['name'], mock: 'contact/read' } });
                 yield put({ type: 'insert', payload: { id: data } });
             }
         },

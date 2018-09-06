@@ -45,11 +45,11 @@ export default class Bridge extends Component {
 
 
     add = (value) => {
-        const id = parseInt(value);
+        // const id = parseInt(value);
         const { dispatch } = this.props;
         const res = dispatch({
             type: 'contact/add',
-            payload: { id },
+            payload: { name: value },
         });
 
 

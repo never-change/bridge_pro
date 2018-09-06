@@ -82,34 +82,10 @@ const proxy = {
   'GET /api/profile/advanced': getProfileAdvancedData,
 
   'POST /json/user/login': odooJsonUserLogin,
-  // 'POST /json/user/login': 'http://192.168.0.110:8069/json/user/login',
+  // 'POST /json/user/login': 'http://192.168.0.44:8069/json/user/login',
 
   'POST /json/api': odooJsonApi,
 
-  // 'POST /api/login/account': (req, res) => {
-  //   const { password, userName, type } = req.body;
-  //   if (password === '888888' && userName === 'admin') {
-  //     res.send({
-  //       status: 'ok',
-  //       type,
-  //       currentAuthority: 'admin',
-  //     });
-  //     return;
-  //   }
-  //   if (password === '123456' && userName === 'user') {
-  //     res.send({
-  //       status: 'ok',
-  //       type,
-  //       currentAuthority: 'user',
-  //     });
-  //     return;
-  //   }
-  //   res.send({
-  //     status: 'error',
-  //     type,
-  //     currentAuthority: 'guest',
-  //   });
-  // },
   'POST /api/register': (req, res) => {
     res.send({ status: 'ok', currentAuthority: 'user' });
   },
@@ -153,7 +129,7 @@ const proxy = {
 };
 
 export default (noProxy ? {
-  'POST /json/(.*)': 'http://192.168.0.117:8069/json/',
+  'POST /json/(.*)': 'http://192.168.0.44:8069/json/',
   // 'POST /json/(.*)': 'http://192.168.0.110:8069/json/',
 } : delay(proxy, 200));
 
