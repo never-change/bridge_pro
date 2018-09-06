@@ -29,6 +29,7 @@ export default {
             /* read form odoo server then save it in here
             */
             const data = yield call(odooRead, payload);
+            console.log('-------read=data--------', data)
             const { model } = payload;
             yield put({ type: 'save', payload: { [dot2line(model)]: data } });
         },

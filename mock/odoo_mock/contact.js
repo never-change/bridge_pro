@@ -27,22 +27,26 @@ function search(model, method, args, kwargs) {
 
 function searchRead(model, method, args, kwargs) {
     const [id] = args;
-    let res = {}
+    let res = []
     for (var ii of id) {
-        res = { ...res, [ii]: records[ii] }
+        res.push(records[ii])
     }
     return res
 }
 
 function read(model, method, args, kwargs) {
     const [id] = args;
-    return { [id]: records[id] }
+    return [records[id]]
 }
 
 function create(model, method, args, kwargs) {
     const [vals] = args;
-    const { id = 0 } = vals;
-    records[id] = { id, name: id.toString() }
+    const { name = 'meiyou' } = vals;
+
+    const ids = Object.keys(records)
+    const id = Math.max(...ids) + 1;
+
+    records[id] = { id, name }
     return id
 }
 
